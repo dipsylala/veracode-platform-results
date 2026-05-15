@@ -5,9 +5,17 @@ description: Analyze SAST, DAST, SCA vulnerabilities and scan metadata from Vera
 
 # Veracode Platform Results
 
+## Path Resolution
+
+The `bin/` directory is co-located with this SKILL.md file. When constructing binary paths, resolve `bin/` relative to the directory containing this SKILL.md — not relative to the workspace root or the current working directory.
+
+Example: if this file was read from `C:\Users\me\skills\veracode-platform-results\SKILL.md`, the Windows binary is at `C:\Users\me\skills\veracode-platform-results\bin\veracode-api-windows-amd64.exe`.
+
+Always use the absolute path when invoking the binary.
+
 ## Setup
 
-Pre-built binaries for all platforms are included in `bin/`:
+Pre-built binaries for all platforms are included in `bin/` (see [Path Resolution](#path-resolution) above for how to locate them):
 
 | Platform | Binary |
 |----------|--------|

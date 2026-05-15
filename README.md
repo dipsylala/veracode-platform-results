@@ -9,6 +9,7 @@ Works with GitHub Copilot, Cursor, Claude Code, and any agent that supports the 
 - Fetches **SAST** findings from platform static analysis scans
 - Fetches **DAST** findings from dynamic analysis scans
 - Fetches **SCA** findings (open-source component vulnerabilities)
+- Retrieves **scan/build metadata** including policy compliance status and analysis units
 - Retrieves detailed flaw data including data-flow paths for SAST and HTTP traces for DAST
 - Supports filtering by severity, status, CWE, policy violations, sandbox, and more
 
@@ -34,23 +35,21 @@ The agent will automatically load the skill when relevant, or you can invoke it 
 
 ## Requirements
 
-- Python 3.8+
-- Veracode API credentials (`~/.veracode/veracode.yml` or environment variables `VERACODE_API_KEY_ID` / `VERACODE_API_KEY_SECRET`)
-
-Dependencies are installed automatically on first use.
+- Veracode API credentials — either `~/.veracode/veracode.yml` (`api.key-id` / `api.key-secret`) or environment variables `VERACODE_API_ID` / `VERACODE_API_KEY`
+- The API base URL is auto-detected from the key prefix: keys starting with `vera01ei-` use `https://api.veracode.eu`; all others use `https://api.veracode.com`. Override with `VERACODE_OVERRIDE_API_BASE_URL` or `api.override-api-base-url` in the YAML.
+- On macOS and Linux: `chmod +x` the binary before first use
 
 ## Repository contents
 
 | Path | Description |
 |------|-------------|
 | `SKILL.md` | Skill definition and agent instructions |
-| `scripts/get-static.py` | Fetch SAST findings with filters |
-| `scripts/get-dynamic.py` | Fetch DAST findings with filters |
-| `scripts/get-flaw-details.py` | Detailed flaw data (data-flow / HTTP trace) |
-| `scripts/get-sca.py` | Fetch SCA component vulnerability findings |
-| `scripts/get-sca-summary.py` | SCA risk overview per application |
-| `scripts/requirements.txt` | Python dependencies |
-| `veracode_lib/` | Shared Veracode API client library |
+| `bin/veracode-api-windows-amd64.exe` | Pre-built binary — Windows (x64) |
+| `bin/veracode-api-windows-arm64.exe` | Pre-built binary — Windows (ARM64) |
+| `bin/veracode-api-darwin-amd64` | Pre-built binary — macOS (Intel) |
+| `bin/veracode-api-darwin-arm64` | Pre-built binary — macOS (Apple Silicon) |
+| `bin/veracode-api-linux-amd64` | Pre-built binary — Linux (x64) |
+| `bin/veracode-api-linux-arm64` | Pre-built binary — Linux (ARM64) |
 | `reference/severity.md` | Severity levels and CVSS ranges |
 | `reference/status.md` | Finding status values |
 | `reference/cwe-common.md` | Common CWE IDs for filtering |

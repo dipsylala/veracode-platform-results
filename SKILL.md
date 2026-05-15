@@ -1,25 +1,48 @@
 ---
 name: veracode-platform-results
-description: Analyze SAST, DAST, and SCA vulnerabilities from Veracode platform. Filter by severity, status, CWE, exploitability, or policy violations. For remediation guidance, use veracode-flaw-fixing.
+description: Analyze SAST, DAST, SCA vulnerabilities and scan metadata from Veracode platform. Filter by severity, status, CWE, exploitability, or policy violations. For remediation guidance, use veracode-flaw-fixing.
 ---
 
 # Veracode Platform Results
 
 ## Setup
 
-The pre-built binary is included in `bin/`. Currently Windows only (`bin/veracode-api.exe`); Mac and Linux versions will be added in a future release.
+Pre-built binaries for all platforms are included in `bin/`:
 
-Use the binary directly or add `bin/` to your `PATH`:
+| Platform | Binary |
+|----------|--------|
+| Windows (x64) | `bin/veracode-api-windows-amd64.exe` |
+| Windows (ARM64) | `bin/veracode-api-windows-arm64.exe` |
+| macOS (Intel) | `bin/veracode-api-darwin-amd64` |
+| macOS (Apple Silicon) | `bin/veracode-api-darwin-arm64` |
+| Linux (x64) | `bin/veracode-api-linux-amd64` |
+| Linux (ARM64) | `bin/veracode-api-linux-arm64` |
+
+Use the binary directly or add `bin/` to your `PATH`. On macOS and Linux, make the binary executable first: `chmod +x bin/veracode-api-<os>-<arch>`
 
 ```powershell
-# Windows — full path
-.\bin\veracode-api.exe <domain> [flags]
+# Windows (x64)
+.\bin\veracode-api-windows-amd64.exe <domain> [flags]
+```
+
+```bash
+# macOS (Apple Silicon)
+./bin/veracode-api-darwin-arm64 <domain> [flags]
+
+# Linux (x64)
+./bin/veracode-api-linux-amd64 <domain> [flags]
 ```
 
 Always provide `--workspace-root` so the binary can locate `.veracode-workspace.json`:
 
 ```powershell
-.\bin\veracode-api.exe <domain> --workspace-root C:\path\to\workspace [flags]
+# Windows
+.\bin\veracode-api-windows-amd64.exe <domain> --workspace-root C:\path\to\workspace [flags]
+```
+
+```bash
+# macOS / Linux
+./bin/veracode-api-darwin-arm64 <domain> --workspace-root /path/to/workspace [flags]
 ```
 
 ## Commands
@@ -49,6 +72,11 @@ veracode-api dynamic --app "AppName" --flaw-id 12345
 veracode-api sca --app "AppName" [--severity 5] [--severity-gte 4] [--cvss-gte 7.0] [--status "OPEN"] [--only-exploitable] [--only-new]
 ```
 
+**scaninfo** — scan/build metadata (policy compliance, scan status, analysis units)
+```bash
+veracode-api scaninfo --app "AppName" [--build-id 12345678]
+```
+
 If `--app` is omitted, the binary reads the profile name from `.veracode-workspace.json` in the workspace root.
 
 Include the flaw IDs from output when requesting remediation guidance.
@@ -58,6 +86,8 @@ Include the flaw IDs from output when requesting remediation guidance.
 **Static / Dynamic**: `--severity N`, `--status`, `--cwe-ids`, `--violates-policy`, `--exclude-mitigations`, `--page`, `--size`, `--sandbox`, `--flaw-id`
 
 **SCA**: `--severity N`, `--severity-gte N`, `--cvss-gte X.X`, `--status`, `--cwe-ids`, `--violates-policy`, `--only-exploitable`, `--only-new`, `--page`, `--size`
+
+**Scan Info**: `--build-id N` (0 or omit = latest scan)
 
 ## Mitigation vs Remediation
 

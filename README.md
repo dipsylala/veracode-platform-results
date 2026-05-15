@@ -1,16 +1,16 @@
-# veracode-pipeline-results
+# veracode-platform-results
 
-A reusable agent skill + scripts pattern for interpreting [Veracode pipeline scan](https://docs.veracode.com/r/pipeline_scan) JSON results. It summarises findings by severity, file, and issue type, and provides prioritised remediation guidance.
+A reusable agent skill + scripts pattern for querying and interpreting [Veracode platform](https://docs.veracode.com/) SAST, DAST, and SCA results via the Findings API.
 
 Works with GitHub Copilot, Cursor, Claude Code, and any agent that supports the `SKILL.md` convention.
 
 ## What it does
 
-- Parses the JSON output from a Veracode pipeline scan (`filtered_results*.json`)
-- Reports a **scan overview**: status, modules scanned, and total finding count
-- Breaks down findings by **severity** and **issue type**
-- Groups findings **by source file** with severity-sorted rows
-- Supports both a default **Summary** mode and an on-request **Detail** mode for drilling into a specific finding, including taint data-path analysis and false-positive assessment
+- Fetches **SAST** findings from platform static analysis scans
+- Fetches **DAST** findings from dynamic analysis scans
+- Fetches **SCA** findings (open-source component vulnerabilities)
+- Retrieves detailed flaw data including data-flow paths for SAST and HTTP traces for DAST
+- Supports filtering by severity, status, CWE, policy violations, sandbox, and more
 
 ## Usage
 
@@ -20,38 +20,40 @@ Copy or clone this folder into your project (or home directory for personal use)
 
 | Location | Scope |
 | ---------- | ------- |
-| `.github/skills/veracode-pipeline-results/` | Project — GitHub Copilot |
-| `.agents/skills/veracode-pipeline-results/` | Project — other agents |
-| `.claude/skills/veracode-pipeline-results/` | Project — Claude/Cursor |
+| `.github/skills/veracode-platform-results/` | Project — GitHub Copilot |
+| `.agents/skills/veracode-platform-results/` | Project — other agents |
+| `.claude/skills/veracode-platform-results/` | Project — Claude/Cursor |
 
 The agent will automatically load the skill when relevant, or you can invoke it directly:
 
-> "Summarise this Veracode scan: `/path/to/filtered_results.json`"
+> "Show me all High and Very High SAST findings for MyApp"
 
-> "Give me details on finding 12 in `filtered_results.json`"
+> "Give me SCA findings for MyApp that violate policy"
+
+> "Get details on flaw 12345 in MyApp"
+
+## Requirements
+
+- Python 3.8+
+- Veracode API credentials (`~/.veracode/veracode.yml` or environment variables `VERACODE_API_KEY_ID` / `VERACODE_API_KEY_SECRET`)
+
+Dependencies are installed automatically on first use.
 
 ## Repository contents
 
 | Path | Description |
 |------|-------------|
 | `SKILL.md` | Skill definition and agent instructions |
-| `REFERENCE.md` | Full JSON schema reference for Veracode pipeline scan output |
-| `scripts/pipeline_summary.py` | Extracts scan overview, severity breakdown, issue-type breakdown, and findings grouped by file |
-| `scripts/pipeline_detail.py` | Extracts full detail for a single finding, including taint data path |
-
-## Scripts
-
-The scripts under `scripts/` can also be run directly against a scan file:
-
-```bash
-# Full scan summary
-python scripts/pipeline_summary.py path/to/filtered_results.json
-
-# Detail for a specific finding by issue ID
-python scripts/pipeline_detail.py path/to/filtered_results.json <issue_id>
-```
-
-**Requirements:** Python 3.6+, no third-party dependencies.
+| `scripts/get-static.py` | Fetch SAST findings with filters |
+| `scripts/get-dynamic.py` | Fetch DAST findings with filters |
+| `scripts/get-flaw-details.py` | Detailed flaw data (data-flow / HTTP trace) |
+| `scripts/get-sca.py` | Fetch SCA component vulnerability findings |
+| `scripts/get-sca-summary.py` | SCA risk overview per application |
+| `scripts/requirements.txt` | Python dependencies |
+| `veracode_lib/` | Shared Veracode API client library |
+| `reference/severity.md` | Severity levels and CVSS ranges |
+| `reference/status.md` | Finding status values |
+| `reference/cwe-common.md` | Common CWE IDs for filtering |
 
 ## Remediation priority
 

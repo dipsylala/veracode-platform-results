@@ -11,7 +11,7 @@ Works with GitHub Copilot, Cursor, Claude Code, and any agent that supports the 
 - Fetches **SCA** findings (open-source component vulnerabilities)
 - Retrieves **scan/build metadata** including policy compliance status and analysis units
 - Retrieves detailed flaw data including data-flow paths for SAST and HTTP traces for DAST
-- Supports filtering by severity, status, CWE, policy violations, sandbox, and more
+- Supports filtering by severity, CWE, new findings, policy violations, sandbox, and more
 
 ## Usage
 
@@ -50,9 +50,6 @@ The agent will automatically load the skill when relevant, or you can invoke it 
 | `bin/veracode-api-darwin-arm64` | Pre-built binary — macOS (Apple Silicon) |
 | `bin/veracode-api-linux-amd64` | Pre-built binary — Linux (x64) |
 | `bin/veracode-api-linux-arm64` | Pre-built binary — Linux (ARM64) |
-| `reference/severity.md` | Severity levels and CVSS ranges |
-| `reference/status.md` | Finding status values |
-| `reference/cwe-common.md` | Common CWE IDs for filtering |
 
 ## Remediation priority
 

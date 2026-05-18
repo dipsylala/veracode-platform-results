@@ -1,6 +1,6 @@
 ---
 name: veracode-platform-results
-description: Analyze SAST, DAST, SCA vulnerabilities and scan metadata from Veracode platform. Filter by severity, status, CWE, exploitability, or policy violations. For remediation guidance, use veracode-flaw-fixing.
+description: Analyze SAST, DAST, SCA vulnerabilities and scan metadata from Veracode platform. Filter by severity, CWE, exploitability, new findings, or policy violations. For remediation guidance, use veracode-flaw-fixing.
 ---
 
 # Veracode Platform Results
@@ -119,7 +119,3 @@ Include the flaw IDs from output when requesting remediation guidance.
 **Remediation**: Code changed → vulnerability eliminated → flaw disappears from Veracode.
 
 **Mitigation**: Flaw remains in code → marked as acceptable risk → requires security approval. Use `--include-mitigations` to fetch annotation details. Statuses: `Proposed`, `Approved`, `Rejected`.
-
-## Reference
-
-[reference/severity.md](reference/severity.md), [reference/status.md](reference/status.md), [reference/cwe-common.md](reference/cwe-common.md)

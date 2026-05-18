@@ -74,9 +74,9 @@ veracode-api appinfo --app "AppName" --format markdown
 veracode-api sandboxes --app "AppName" --format markdown
 ```
 
-**static** — SAST findings (mitigations included by default)
+**static** — SAST findings
 ```bash
-veracode-api static --app "AppName" [--severity 5] [--status "NEW,OPEN"] [--sandbox "Name"] [--exclude-mitigations] --format markdown
+veracode-api static --app "AppName" [--severity 5] [--only-new] [--sandbox "Name"] [--include-mitigations] --format markdown
 ```
 
 **static flaw detail** — call-stack data paths for a specific SAST finding
@@ -84,9 +84,9 @@ veracode-api static --app "AppName" [--severity 5] [--status "NEW,OPEN"] [--sand
 veracode-api static --app "AppName" --flaw-id 12345 --format markdown
 ```
 
-**dynamic** — DAST findings (mitigations included by default)
+**dynamic** — DAST findings
 ```bash
-veracode-api dynamic --app "AppName" [--severity 5] [--exclude-mitigations] --format markdown
+veracode-api dynamic --app "AppName" [--severity 5] [--include-mitigations] --format markdown
 ```
 
 **dynamic flaw detail** — HTTP request/response details for a specific DAST finding
@@ -96,7 +96,7 @@ veracode-api dynamic --app "AppName" --flaw-id 12345 --format markdown
 
 **sca** — SCA component findings
 ```bash
-veracode-api sca --app "AppName" [--severity 5] [--severity-gte 4] [--cvss 7.5] [--cvss-gte 7.0] [--status "OPEN"] [--only-exploitable] [--only-new] --format markdown
+veracode-api sca --app "AppName" [--severity 5] [--severity-gte 4] [--cvss 7.5] [--cvss-gte 7.0] [--only-exploitable] [--only-new] --format markdown
 ```
 
 **scaninfo** — scan/build metadata (policy compliance, scan status, analysis units)
@@ -110,17 +110,17 @@ Include the flaw IDs from output when requesting remediation guidance.
 
 ## Filters
 
-**Static / Dynamic**: `--severity N`, `--severity-gte N`, `--cvss X.X`, `--cvss-gte X.X`, `--status`, `--cwe-ids`, `--violates-policy`, `--exclude-mitigations`, `--page`, `--size`, `--sandbox` (static only), `--flaw-id`
+**Static / Dynamic**: `--severity N`, `--severity-gte N`, `--cvss X.X`, `--cvss-gte X.X`, `--cwe-ids`, `--violates-policy`, `--only-new`, `--include-mitigations`, `--page`, `--size`, `--sandbox` (static only), `--flaw-id`
 
-**SCA**: `--severity N`, `--severity-gte N`, `--cvss X.X`, `--cvss-gte X.X`, `--status`, `--cwe-ids`, `--violates-policy`, `--only-exploitable`, `--only-new`, `--page`, `--size`
+**SCA**: `--severity N`, `--severity-gte N`, `--cvss X.X`, `--cvss-gte X.X`, `--cwe-ids`, `--violates-policy`, `--only-new`, `--only-exploitable`, `--page`, `--size`
 
 **Scan Info**: `--build-id N` (0 or omit = latest scan)
 
 ## Mitigation vs Remediation
 
-**Remediation**: Code changed → vulnerability eliminated → flaw disappears from Veracode. Use `veracode-flaw-fixing` skill.
+**Remediation**: Code changed → vulnerability eliminated → flaw disappears from Veracode.
 
-**Mitigation**: Flaw remains in code → marked as acceptable risk → requires security approval. Statuses: `Proposed`, `Approved`, `Rejected`.
+**Mitigation**: Flaw remains in code → marked as acceptable risk → requires security approval. Use `--include-mitigations` to fetch annotation details. Statuses: `Proposed`, `Approved`, `Rejected`.
 
 ## Reference
 

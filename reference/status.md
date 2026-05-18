@@ -13,16 +13,4 @@
 - `FALSE_POSITIVE` - Incorrect detection
 - `ACCEPTED` - Risk accepted
 
-## Filtering
 
-```bash
-
-# Active findings
---status "NEW,OPEN"
-
-# Resolved findings
---status "FIXED,MITIGATED"
-
-# Include mitigation details
---includeDetails true
-```

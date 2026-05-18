@@ -8,18 +8,3 @@
 | **2 - Low** | 0.1 - 3.9 |
 | **1 - Very Low** | 0.0 |
 | **0 - Informational** | N/A |
-
-## Filtering
-
-```bash
-
-# SAST/DAST: By severity number (0-5)
---severity 5
---severity 4
-
-# SCA: By minimum severity level
---severity-gte 4
-
-# SCA: By CVSS score
---cvss-gte 7.0
-```

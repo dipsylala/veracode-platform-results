@@ -13,6 +13,8 @@ Works with GitHub Copilot, Cursor, Claude Code, and any agent that supports the 
 - Retrieves detailed flaw data including data-flow paths for SAST and HTTP traces for DAST
 - Supports filtering by severity, status, CWE, policy violations, sandbox, and more
 
+The provided API bridge used to access the REST/XMLVeracode API comes from [https://github.com/dipsylala/veracode-api](https://github.com/dipsylala/veracode-api)
+
 ## Usage
 
 ### GitHub Copilot, Cursor, and other AI IDEs

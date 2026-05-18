@@ -18,8 +18,8 @@
 --severity 4
 
 # SCA: By minimum severity level
---severityGte 4
+--severity-gte 4
 
 # SCA: By CVSS score
---cvssGte 7.0
+--cvss-gte 7.0
 ```

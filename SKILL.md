@@ -53,36 +53,55 @@ Always provide `--workspace-root` so the binary can locate `.veracode-workspace.
 ./bin/veracode-api-darwin-arm64 <domain> --workspace-root /path/to/workspace [flags]
 ```
 
+## Output format
+
+All commands accept `--format json` (default) or `--format markdown`. Always use `--format markdown` — it is more compact and easier to read in LLM responses.
+
 ## Commands
+
+**apps** — list all application profiles
+```bash
+veracode-api apps [--page 0] [--size 100] --format markdown
+```
+
+**appinfo** — application profile details
+```bash
+veracode-api appinfo --app "AppName" --format markdown
+```
+
+**sandboxes** — list sandboxes for an application
+```bash
+veracode-api sandboxes --app "AppName" --format markdown
+```
 
 **static** — SAST findings (mitigations included by default)
 ```bash
-veracode-api static --app "AppName" [--severity 5] [--status "NEW,OPEN"] [--sandbox "Name"] [--exclude-mitigations]
+veracode-api static --app "AppName" [--severity 5] [--status "NEW,OPEN"] [--sandbox "Name"] [--exclude-mitigations] --format markdown
 ```
 
 **static flaw detail** — call-stack data paths for a specific SAST finding
 ```bash
-veracode-api static --app "AppName" --flaw-id 12345
+veracode-api static --app "AppName" --flaw-id 12345 --format markdown
 ```
 
 **dynamic** — DAST findings (mitigations included by default)
 ```bash
-veracode-api dynamic --app "AppName" [--severity 5] [--sandbox "Name"] [--exclude-mitigations]
+veracode-api dynamic --app "AppName" [--severity 5] [--exclude-mitigations] --format markdown
 ```
 
 **dynamic flaw detail** — HTTP request/response details for a specific DAST finding
 ```bash
-veracode-api dynamic --app "AppName" --flaw-id 12345
+veracode-api dynamic --app "AppName" --flaw-id 12345 --format markdown
 ```
 
 **sca** — SCA component findings
 ```bash
-veracode-api sca --app "AppName" [--severity 5] [--severity-gte 4] [--cvss-gte 7.0] [--status "OPEN"] [--only-exploitable] [--only-new]
+veracode-api sca --app "AppName" [--severity 5] [--severity-gte 4] [--cvss 7.5] [--cvss-gte 7.0] [--status "OPEN"] [--only-exploitable] [--only-new] --format markdown
 ```
 
 **scaninfo** — scan/build metadata (policy compliance, scan status, analysis units)
 ```bash
-veracode-api scaninfo --app "AppName" [--build-id 12345678]
+veracode-api scaninfo --app "AppName" [--build-id 12345678] --format markdown
 ```
 
 If `--app` is omitted, the binary reads the profile name from `.veracode-workspace.json` in the workspace root.
@@ -91,9 +110,9 @@ Include the flaw IDs from output when requesting remediation guidance.
 
 ## Filters
 
-**Static / Dynamic**: `--severity N`, `--status`, `--cwe-ids`, `--violates-policy`, `--exclude-mitigations`, `--page`, `--size`, `--sandbox`, `--flaw-id`
+**Static / Dynamic**: `--severity N`, `--severity-gte N`, `--cvss X.X`, `--cvss-gte X.X`, `--status`, `--cwe-ids`, `--violates-policy`, `--exclude-mitigations`, `--page`, `--size`, `--sandbox` (static only), `--flaw-id`
 
-**SCA**: `--severity N`, `--severity-gte N`, `--cvss-gte X.X`, `--status`, `--cwe-ids`, `--violates-policy`, `--only-exploitable`, `--only-new`, `--page`, `--size`
+**SCA**: `--severity N`, `--severity-gte N`, `--cvss X.X`, `--cvss-gte X.X`, `--status`, `--cwe-ids`, `--violates-policy`, `--only-exploitable`, `--only-new`, `--page`, `--size`
 
 **Scan Info**: `--build-id N` (0 or omit = latest scan)
 

@@ -15,8 +15,6 @@ Always use the absolute path when invoking the binary.
 
 ## Setup
 
-Pre-built binaries for all platforms are included in `bin/` (see [Path Resolution](#path-resolution) above for how to locate them):
-
 | Platform | Binary |
 |----------|--------|
 | Windows (x64) | `bin/veracode-api-windows-amd64.exe` |

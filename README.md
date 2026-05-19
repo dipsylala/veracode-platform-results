@@ -13,6 +13,16 @@ Works with GitHub Copilot, Cursor, Claude Code, and any agent that supports the 
 - Retrieves detailed flaw data including data-flow paths for SAST and HTTP traces for DAST
 - Supports filtering by severity, CWE, new findings, policy violations, sandbox, and more
 
+Example agent workflows using the skill:
+
+Claude Code:
+
+![Claude using the Veracode platform results skill](assets/claude.png)
+
+VS Code:
+
+![VS Code using the Veracode platform results skill](assets/vscode.png)
+
 The provided API bridge used to access the REST/XMLVeracode API comes from [https://github.com/dipsylala/veracode-api](https://github.com/dipsylala/veracode-api)
 
 ## Usage

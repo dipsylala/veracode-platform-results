@@ -25,7 +25,22 @@ VS Code:
 
 The provided API bridge used to access the REST/XMLVeracode API comes from [https://github.com/dipsylala/veracode-api](https://github.com/dipsylala/veracode-api)
 
-## Usage
+## Installation
+
+### Install with npx skills
+
+Use [npx skills](https://github.com/vercel-labs/skills) to install directly into your coding agent(s):
+
+```bash
+# Install to all detected agents (interactive)
+npx skills add dipsylala/veracode-platform-results
+
+# Install globally (available across all projects)
+npx skills add dipsylala/veracode-platform-results -g
+
+# Install to a specific agent non-interactively
+npx skills add dipsylala/veracode-platform-results -a claude-code -y
+```
 
 ### GitHub Copilot, Cursor, and other AI IDEs
 
@@ -36,6 +51,8 @@ Copy or clone this folder into your project (or home directory for personal use)
 | `.github/skills/veracode-platform-results/` | Project — GitHub Copilot |
 | `.agents/skills/veracode-platform-results/` | Project — other agents |
 | `.claude/skills/veracode-platform-results/` | Project — Claude/Cursor |
+
+## Usage
 
 The agent will automatically load the skill when relevant, or you can invoke it directly:
 

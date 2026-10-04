@@ -4,6 +4,9 @@ A reusable agent skill + scripts pattern for querying and interpreting [Veracode
 
 Works with GitHub Copilot, Cursor, Claude Code, and any agent that supports the `SKILL.md` convention.
 
+> [!NOTE]
+> As of October 2026, I no longer have a Veracode license, so I can't verify whether the following still works as Veracode's technology stack evolves.
+
 ## What it does
 
 - Fetches **SAST** findings from platform static analysis scans
